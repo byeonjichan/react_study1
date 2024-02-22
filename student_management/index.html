@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" placeholder="name">
+    <input type="text" placeholder="age">
+    <button onclick="handleAddClick();">추가</button>
+    <ul>
+
+    </ul>
+    <script>
+        const studentList =[];
+
+        function handleAddClick() {
+            const inputs = document.querySelectorAll("input");
+            const student = {
+                name: inputs[0].value,
+                age: inputs[1].value
+            }
+           // studentList = [...studentList, student];
+
+            const studentInfoList = document.querySelector("ul");
+            
+            const newLi = document.createElement("li");
+
+            const studentInfoText = 
+                document.createTextNode(`이름: ${student.name}/나이 :${student.age}`);
+
+            const deleteButton = document.createElement("button");
+            const deleteButtonName = document.createTextNode("삭제");
+
+            deleteButton.appendChild(deleteButtonName);
+
+            newLi.appendChild(studentInfoText);
+
+            newLi.appendChild(deleteButton);
+            studentInfoList.appendChild(newLi);
+
+            deleteButton.onclick = () => {
+                studentInfoList.removeChild(newLi);
+            }
+            studentInfoList.innerHTML += `<li>이름: ${student.name}/나이 :${student.age}<button class="delete-button">삭제</button> </li>` ;
+            const deleteButtons = document.querySelectorAll(".delete-button");
+            
+            for(let i =0; i < deleteButtons.length; i++) {
+                deleteButtons[i].onclick = () => {
+                    const li = studentInfoList.querySelectorAll("li")[i]
+                    studentInfoList.removeChild(li);
+                }
+            }
+
+            function handleRemoveClick(event) {
+                const studentInfoList = document.querySelector("ul");
+                studentInfoList.removeChild(event.target.parentNode);
+            }
+
+        }
+        // function StudentInfo({name, age}) {
+        //     return <li></li>
+        // }
+    </script>
+</body>
+</html>
