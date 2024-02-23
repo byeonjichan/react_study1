@@ -5,7 +5,7 @@ export const layout = (isShow) => css`
     position: fixed;
     top: 0;
     left: ${isShow ? "0px" : "-300px"};
-
+    z-index: 99;
     border-right:1px solid #dbdbdb;
     width : 300px ;
     height: 100%;
