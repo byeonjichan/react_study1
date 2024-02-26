@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 export const layout = css`
     padding: 100px 30px 0px;
 `;
- 
+
 export const title = css`
     margin-bottom: 30px;
     text-align: center;

@@ -2,7 +2,7 @@
 import * as S from "./style";
 import { useRef, useState } from "react";
 function Mypage(props) {
-    const imgfileFileRef = useRef();
+    const imgFileRef = useRef();
     const [ preview, setPreview ] = useState (""); 
 
     const handleImgFileChange = (e) => {
@@ -19,14 +19,13 @@ function Mypage(props) {
 
         fileReader.readAsDataURL(e.target.files[0]);
     }
-
     return (
         <div css={S.layout}>
             <div css={S.profileHeader}>
                 <h1 css={S.title}>마이페이지</h1>
-                <div css={S.profileImg} onClick={() => imgfileFileRef.current.click()}>
+                <div css={S.profileImg} onClick={() => imgFileRef.current.click()}>
                     <img src={preview} alt="" />
-                    <input style={{display : "none"}} type="file" multiple={true} ref={imgfileFileRef} onChange={handleImgFileChange}/>
+                    <input style={{display : "none"}} type="file" multiple={true} ref={imgFileRef} onChange={handleImgFileChange}/>
             </div>           
                 <div css={S.nicknameLayout}> 
                     <input css={S.nickname} type="text" maxLength={20} />
