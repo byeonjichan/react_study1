@@ -11,10 +11,10 @@ function SideBar(props) {
     return ( 
         <aside css={S.layout(isShow)}>
             <button css={S.toggleButton} onClick={() => setShow(!isShow)} >
-                {isShow ? <FaCaretLeft /> :<FaCaretRight />}
+                {isShow ? <FaCaretLeft /> : <FaCaretRight />}
             </button>
             <ul css={S.menuList}>
-                {MENUS.map(menu => <Link css={S.menuItem} to={menu.path} key={menu.id} onClick={() => setShow(false)}>
+                {MENUS.map(menu => <Link css={S.menuItem} to={`${menu.path}${!menu.params ? "" : "?" + Object.entries(menu.params).map(([key , value])=> key + "=" + value).join("&")}`} key={menu.id} onClick={() => setShow(false)}>
                         <li>{menu.name}</li>
                         </Link>)
                 }

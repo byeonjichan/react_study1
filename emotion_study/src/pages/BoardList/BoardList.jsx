@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { useLoadList } from '../../hooks/boardListHook';
+import { Link, useSearchParams } from 'react-router-dom';
+import { useLoadList, useLoadListByPageNumber } from '../../hooks/boardListHook';
 
 const layout = css`
     display: flex;
@@ -22,7 +22,7 @@ const boardListLayout = css`
     box-sizing:border-box;
     border: 1px solid #dbdbdb;
     width: 900px;
-    height: 500px;
+    height: 60%;
 `;
 
 
@@ -37,8 +37,7 @@ const boardListHeader = css`
         justify-content: center;
         align-items: center;
         flex-grow: 1;
-        height: 80px;
-        width:40px;
+        height: 40px; 
         font-weight: 700;
         cursor: default;
     }
@@ -67,8 +66,8 @@ const boardListItem = css`
             justify-content: center;
             align-items: center;
             flex-grow: 1;
-            height: 80px;
-            width:40px;
+            height: 40px;
+            
         }
         & > div:nth-of-type(1) {
             flex-grow: 0;
@@ -78,11 +77,30 @@ const boardListItem = css`
     }
 `;
 
+const pageNumberLayout = (page) =>css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    & > a {
+        box-sizing: border-box;
+        margin: 0px 3px;
+        border: 1px solid #dbdbdb;
+        padding: 3px;
+        text-decoration: none;
+        color: #222;
+        font-weight: 700;
+        &:nth-of-type(${page === 1 ? 1 : page % 5 === 0 ? 8 : (page % 5) + 3}) {
+            background-color: #eee;
+        } 
+    }
+`;
 
-
-function BoardList(props) {
-
-    const { boardList } = useLoadList();
+function BoardList() {
+    const [ searchParams ] = useSearchParams();
+    const page = parseInt(searchParams.get("page"));
+    const { boardList , pageNumbers, totalPageCount, startPageNumber , endPageNumber} = useLoadListByPageNumber(page);
+    
 
     return (
         <div css={layout}>
@@ -94,13 +112,24 @@ function BoardList(props) {
                 </li>
                 {boardList.map(board =>
                 <Link to={`/board/${board.boardId}`} css={boardListItem}>
-                    <li>
+                    <li css={boardListHeader}>
                         <div>{board.boardId}</div>
                         <div>{board.boardtitle}</div>
                     </li>
                 </Link>
                 )}
             </ul>
+            <div css={pageNumberLayout}>
+                {page !== 1 && <Link to={`/board/list/:page?page=${1}`}>처음으로</Link>}
+                {startPageNumber !== 1 && <Link to={`/board/list/:page?page=${startPageNumber-5}`}>&#171;</Link>}
+                {page !== 1 && <Link to={`/board/list/:page?page=${page - 1}`}>&#60;</Link>}
+                {pageNumbers.map(pageNumber =>
+                <Link to={`/board/list/:page?page=${pageNumber}`}>{pageNumber}</Link>    
+                )}
+                {page !== totalPageCount && <Link to={`/board/list/:page?page=${page + 1}`}>&#62;</Link>}
+                {endPageNumber !== totalPageCount && <Link to={`/board/list/:page?page=${endPageNumber+1}`}>&#187;</Link>}
+                {page !== totalPageCount && <Link to={`/board/list/:page?page=${totalPageCount}`}>마지막으로</Link>}
+            </div>
         </div>
     );
 }

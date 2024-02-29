@@ -58,18 +58,20 @@ function BoardWrite(props) {
         boardTitle:"",
         boardContent:""
     });
-    const [ inputValue , handleInputChange ] = useMaxSizeValidateInput(10);
+    const [ inputValue , handleInputChange ] = useMaxSizeValidateInput(20);
     const [ quillValue , handleQuillvalueChange ] = useQuillInput();
     const { boardList , lastId } = useLoadList();
 
     const handleSubmitClick = (e) => {
-        
-        const board = {
-            boardId:lastId + 1,
-            boardtitle: inputValue,
-            boardContent: quillValue
+        let newBoardList = [];
+        for (let i = 0; i < 203; i++) { 
+            const board = {
+                boardId:i + 1,
+                boardtitle: inputValue + (i + 1),
+                boardContent: quillValue
+            };
+            newBoardList = [...newBoardList, board];
         }
-        const newBoardList = [...boardList, board];
         localStorage.setItem("boardList", JSON.stringify(newBoardList));
         alert("글 작성 완료.");
         navigate("/board/list");
