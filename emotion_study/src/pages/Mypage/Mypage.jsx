@@ -19,6 +19,7 @@ function Mypage(props) {
 
         fileReader.readAsDataURL(e.target.files[0]);
     }
+    
     return (
         <div css={S.layout}>
             <div css={S.profileHeader}>
