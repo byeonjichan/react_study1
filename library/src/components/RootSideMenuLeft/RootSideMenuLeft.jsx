@@ -10,23 +10,20 @@ function RootSideMenuLeft() {
 
     const handleCloseClick=() => {
         setshow(() => false);
-    } 
+    }
 
     return (
         <div css={s.layout(show)}>
             <div css={s.header}>
-
-            <button css={s.menuButton} onClick={()=>handleCloseClick()}>
-                <HiMenu />
-            </button>
+                <button css={s.menuButton} onClick={handleCloseClick}>
+                    <HiMenu />
+                </button>
+            </div>
             <div css={s.profile}>
 
             </div>
             <div css={s.menuList}>
-                <Link css={s.menuLink}>
-                    도서 검색
-                </Link>
-            </div>
+                <Link css={s.menuLink}>도서 검색</Link>
             </div>
         </div>
     );
