@@ -20,4 +20,4 @@ export const layout = css`
     height: 600px;
     overflow: hidden;
     background-color: black;
-`
+`;

@@ -6,11 +6,10 @@ export const header = css`
     justify-content: space-between;
     align-items: center;
     margin-top: 15px;
+    border-bottom: 1px solid #dbdbdb;
     padding: 0px 10px;
     width: 100%;
     height: 50px;
-    border-bottom: 1px solid #dbdbdb;
-
 `;
 
 export const menuButton = css`
@@ -19,6 +18,7 @@ export const menuButton = css`
     padding: 10px;
     background-color: transparent;
     cursor: pointer;
+
     & > * {
         font-size: 16px;
     }

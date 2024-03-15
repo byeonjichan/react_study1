@@ -1,14 +1,14 @@
 import { css } from "@emotion/react";
 
 export const layout = (show) => css`
-    transition: left 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
     opacity: ${show ? 1 : 0};
     position: absolute;
-    left: ${show ? "0px" : "-200px"};
     top: 0;
+    left: ${show ? "0px" : "-200px"};
     box-sizing: border-box;
-    border-right:1px solid #dbdbdb;
-    padding:15px 0px;
+    border-right: 1px solid #dbdbdb;
+    padding: 15px 0px;
     width: 200px;
     height: 100%;
     background-color: #fafafa;
@@ -19,11 +19,10 @@ export const header = css`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    border-bottom:1px solid #dbdbdb ;
+    border-bottom: 1px solid #dbdbdb;
     padding: 0px 10px;
     width: 100%;
     height: 50px;
-
 `;
 
 export const menuButton = css`
@@ -32,6 +31,7 @@ export const menuButton = css`
     padding: 10px;
     background-color: transparent;
     cursor: pointer;
+
     & > * {
         font-size: 16px;
     }
@@ -45,20 +45,19 @@ export const profile = css`
 `;
 
 export const menuList = css`
-    
+
 `;
 
 export const menuLink = css`
-    display: flex;
     box-sizing: border-box;
+    display: flex;
     align-items: center;
     border-bottom: 1px solid #dbdbdb;
-    height: 50px;
+    padding: 0px 20px;
+    height: 40px;
     background-color: #fdfdfd;
     font-size: 14px;
+    font-weight: 600;
     text-decoration: none;
     color: #222222;
-    font-weight: 600;
-    padding: 0px 20px;
-    
 `;

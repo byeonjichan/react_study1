@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import * as s from "./style"
+import * as s from "./style";
 
-function RootLayout( {children} ) {
+function RootLayout({ children }) {
     return (
         <>
-        <div css={s.background}></div>
-        <div css={s.layout}>
-            {children}
-        </div>
+            <div css={s.background}></div>
+            <div css={s.layout}>
+                {children}
+            </div>
         </>
     );
 }

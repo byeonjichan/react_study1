@@ -6,10 +6,10 @@ import { menuState } from "../../atoms/menuAtom";
 import { Link } from "react-router-dom";
 
 function RootSideMenuLeft() {
-    const [ show , setshow ] = useRecoilState(menuState);
+    const [ show, setShow ] = useRecoilState(menuState);
 
-    const handleCloseClick=() => {
-        setshow(() => false);
+    const handleCloseClick = () => {
+        setShow(() => false);
     }
 
     return (
@@ -19,11 +19,15 @@ function RootSideMenuLeft() {
                     <HiMenu />
                 </button>
             </div>
+
             <div css={s.profile}>
 
             </div>
+
             <div css={s.menuList}>
-                <Link css={s.menuLink}>도서 검색</Link>
+                <Link css={s.menuLink}>
+                    도서 검색
+                </Link>
             </div>
         </div>
     );

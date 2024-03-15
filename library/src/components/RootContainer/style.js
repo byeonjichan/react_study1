@@ -8,4 +8,4 @@ export const container = css`
     height: 100%;
     overflow: hidden;
     background-color: #fafafa;
-`
+`;
