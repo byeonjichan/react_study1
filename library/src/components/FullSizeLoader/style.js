@@ -1,12 +1,15 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
-    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0%;
+    z-index: 999;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
-    padding: 50px 0px;
-    width: 300px;
-    height: 500px;
+    width: 100%;
+    height: 100%;
+    background-color: #fafafa33;
+    
 `;

@@ -4,31 +4,61 @@ import * as s from "./style";
 import { HiMenu } from "react-icons/hi";
 import { menuState } from "../../atoms/menuAtom";
 import { Link } from "react-router-dom";
-import { FiUser } from "react-icons/fi";
-import { principalState } from "../../atoms/principalAtom";
+import { FiUser, FiLogOut } from "react-icons/fi";
+import { useQueryClient } from "react-query";
+import { useEffect, useState } from "react";
+import instance from "../../apis/utils/instance";
 
 function RootHeader() {
     const [ show, setShow ] = useRecoilState(menuState);
-    const [ principal , setPrincipal ] = useRecoilState(principalState);
-
+    const [ isLogin , setLogin ] = useState(false);
+    const queryClient = useQueryClient();
+    const principalQueryState = queryClient.getQueryState("principalQuery")
     
-    const handleOpenClick = () => {
+
+    useEffect(() => {
+        setLogin(() => principalQueryState.status === "success")
+    },[principalQueryState.status])
+
+    const handleOpenClick = (e) => {
+        e.stopPropagation();
         setShow(() => true);
     }
+
+    const handleLogoutClick = () => {
+        localStorage.removeItem("AccessToken");
+        instance.interceptors.request.use((config) => {
+            config.headers.Authorization = null;
+            return config;
+        });
+        queryClient.refetchQueries("principalQuery")
+        
+    }
     
+    const handleRefetch = () => {
+        queryClient.refetchQueries("principalQuery");
+    }
+
     return (
         <div css={s.header}>
             <button css={s.menuButton} onClick={handleOpenClick}>
                 <HiMenu />
             </button>
+            <button onClick={handleRefetch}>principal 다시 로드</button>
             {
-                !principal 
+                !isLogin 
                 ? <Link css={s.account} to={"/auth/signin"}>
                     <FiUser />
                 </Link>
-                : <Link css={s.account} to={"/account/mypage"}>
-                <FiUser />
-            </Link>
+                :
+                <div css={s.accountItems}>
+                    <button css={s.logout} onClick={handleLogoutClick}>
+                        <FiLogOut />
+                    </button>
+                    <Link css={s.account} to={"/account/mypage"}>
+                        <FiUser />
+                    </Link>
+                </div>
             }
         </div>
     );
