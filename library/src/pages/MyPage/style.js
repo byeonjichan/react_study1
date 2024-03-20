@@ -61,8 +61,8 @@ export const emailBox = css`
     align-items: center;
     margin-bottom: 10px;
 
-    & > div {
-        margin: 0;
+    & > div:nth-of-type(1) {
+        margin: 0px 10px 0px 0px;
     }
 `;
 
@@ -84,6 +84,24 @@ export const infoButton = css`
     }
 `;
 
+export const emailCheck = css`
+    display: flex;
+    align-items: center;
+
+    & > * {
+        color: #008734
+    }
+`;
+
+export const infoButtons = css`
+    box-sizing: border-box;
+    display: flex;
+    padding-top: 5px ;
+    & > button:nth-of-type(1) {
+        margin-right: 5px;
+    }
+
+`;
 
 export const bottom = css`
     box-sizing: border-box;
