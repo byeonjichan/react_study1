@@ -32,11 +32,12 @@ function RootHeader() {
             return config;
         });
         queryClient.refetchQueries("principalQuery")
-        
+        window.location.replace("auth/signin")
     }
     
     const handleRefetch = () => {
         queryClient.refetchQueries("principalQuery");
+        
     }
 
     return (

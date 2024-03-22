@@ -4,8 +4,12 @@ import * as s from "./style";
 import { sendAuthMailRequest } from "../../apis/api/sendAuthMail";
 import FullsizeLoader from "../../components/FullSizeLoader/FullSizeLoader"
 import { GoCheckCircle } from "react-icons/go";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useNavigate } from "react-router-dom";
 
-function MyPage(props) {
+function MyPage() {
+    useAuthCheck();
+    const navigate = useNavigate();
     const queryClient = useQueryClient();
     const pricipalData = queryClient.getQueryData("principalQuery")
 
@@ -41,12 +45,12 @@ function MyPage(props) {
                     </div>
                 </div>
                 <div css={s.infoBox}>
-                    <div css={s.infoText}>사용자 이름: {pricipalData.data.username}</div>
-                    <div css={s.infoText}>이름: {pricipalData.data.name}</div>
+                    <div css={s.infoText}>사용자 이름: {pricipalData?.data.username}</div>
+                    <div css={s.infoText}>이름: {pricipalData?.data.name}</div>
                     <div css={s.emailBox}>
-                        <div css={s.infoText}>이메일: {pricipalData.data.email}</div>
+                        <div css={s.infoText}>이메일: {pricipalData?.data.email}</div>
                         {
-                            pricipalData.data.authorities.filter(auth => auth.authority === "ROLE_USER").length === 0
+                            pricipalData?.data.authorities.filter(auth => auth.authority === "ROLE_USER").length === 0
                             ?
                             <button css={s.infoButton} onClick={handleSendAuthMailClick}>인증하기</button>
                             :
@@ -55,7 +59,7 @@ function MyPage(props) {
                     </div>
                     <div css={s.infoButtons}>
                         <button css={s.infoButton}>정보 수정</button>
-                        <button css={s.infoButton}>비밀번호 수정</button>
+                        <button css={s.infoButton} onClick={() => navigate("/account/edit/password")}>비밀번호 수정</button>
                     </div>                   
                 </div>
             </div>
