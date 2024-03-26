@@ -13,10 +13,11 @@ import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from "firebase
 import { v4 as uuid } from "uuid";
 import RightTopButton from "../../../components/RightTopButton/RightTopButton";
 import { registerBook } from "../../../apis/api/bookApi";
+import AdminBookSearch from "../../../components/AdminBookSearch/AdminBookSearch";
 
 function BookManagement(props) {
 
-    const [ bookTypesOptions, setBookTypesOptions ] = useState([]);
+    const [ bookTypeOptions, setBookTypesOptions ] = useState([]);
     const [ categoryOptions, setCategoryOptions ] = useState([]);
     const fileRef = useRef();
     const inputRefs= [
@@ -70,7 +71,7 @@ function BookManagement(props) {
         mutationKey: "registerBookMutation",
         mutationFn: registerBook,
         onSuccess:() => {},
-        onError:() => {}
+        onError:() => {},
     })
 
     const nextInput= (bookref) => {
@@ -87,7 +88,7 @@ function BookManagement(props) {
             bookName: bookName.value,
             authorName: authorName.value,
             publisherName: publisherName.value,
-            imgUrl: imgUrl.value
+            coverImgUrl: imgUrl.value
         })
     }
 
@@ -146,9 +147,8 @@ function BookManagement(props) {
 
     return (
         <div css={s.layout}>
-            <div >
-                <h1 css={s.header
-                }>도서 관리</h1>
+            <div css={s.header}>
+                <h1 >도서 관리</h1>
                 <RightTopButton onClick={submit}>확인</RightTopButton>
             </div>
                 <div css={s.topLayout}>
@@ -188,7 +188,7 @@ function BookManagement(props) {
                                 <td>
                                     < Select 
                                     styles={selectStyle} 
-                                    options={bookTypesOptions}
+                                    options={bookTypeOptions}
                                     onKeyDown={bookTypeName.handleOnKeyDown}
                                     onChange={bookTypeName.handleOnChange}
                                     ref={inputRefs[2]}
@@ -263,8 +263,14 @@ function BookManagement(props) {
                                 </td>
                             </tr>
                         </tbody>
-                    </table>      
-                    <div></div>
+                    </table>
+                    <div>
+                    <AdminBookSearch 
+                        selectStyle={selectStyle}
+                        bookTypeOptions={bookTypeOptions}
+                        categoryOptions={categoryOptions}
+                    />
+                    </div>
                 </div>
             </div>
     );

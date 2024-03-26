@@ -19,10 +19,12 @@ export const header = css`
     }
 `;
 
-export const topLayout =css`
+export const topLayout = css`
     display: flex;
+    flex-direction: column;
     width: 100%;
 `;
+
 export const registerTable = css`
     box-sizing: border-box;
     border-collapse: collapse;
@@ -31,7 +33,7 @@ export const registerTable = css`
     width: 100%;
     background-color: #fdfdfd;
 
-    & > td {
+    & td {
         box-sizing: border-box;
         border: 1px solid #dbdbdb;
         background-color: white;
@@ -60,7 +62,7 @@ export const imageBox = css`
     height: 100%;
     overflow: hidden;
 
-    & > img {
+    & img {
         height: 150px;
     }
 `;
@@ -71,17 +73,18 @@ export const imgUrl = css`
 `;
 
 export const imgUrlBox = css`
-    width: 90%;
     display: inline-block;
+    width: 95%;
     line-height: 10px;
 `;
 
 export const imgAddButton = css`
-    border: none;
     display: flex;
     align-items: flex-end;
+    border: none;
     padding: 0;
     background-color: transparent;
+    cursor: pointer;
     & > * {
         font-size: 20px;
     }
