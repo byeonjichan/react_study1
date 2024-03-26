@@ -3,7 +3,7 @@ import Select from "react-select";
 import BookRegisterInput from "../../../components/BookRegisterInput/BookRegisterInput";
 import * as s from "./style";
 import { css } from "@emotion/react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { getAllBookTypeRequest, getAllCategoryRequest } from "../../../apis/api/options";
 import { useRef, useState } from "react";
 import { CiSquarePlus } from "react-icons/ci";
@@ -12,6 +12,7 @@ import { storage } from "../../../apis/api/firebase/config/firebaseConfig";
 import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuid } from "uuid";
 import RightTopButton from "../../../components/RightTopButton/RightTopButton";
+import { registerBook } from "../../../apis/api/bookApi";
 
 function BookManagement(props) {
 
@@ -28,36 +29,6 @@ function BookManagement(props) {
         useRef(),   // 6출판사
         useRef()    // 7URL
     ];
-
-    const nextInput= (bookref) => {
-        console.log(bookref);
-        bookref.current.focus();
-    }
-
-    const submit = () => {
-        //저장 요청
-        console.log([
-            bookId.value, 
-            isbn.value,
-            bookTypeName.value,
-            categoryName.value,
-            bookName.value,
-            authorName.value,
-            publisherName.value,
-            imgUrl.value
-        ])
-    }
-
-    const bookId = useBookRegisterInput(nextInput, inputRefs[1]);
-    const isbn = useBookRegisterInput(nextInput, inputRefs[2]);
-    const bookTypeName = useBookRegisterInput(nextInput, inputRefs[3]);
-    const categoryName = useBookRegisterInput(nextInput, inputRefs[4]);
-    const bookName = useBookRegisterInput(nextInput, inputRefs[5]);
-    const authorName = useBookRegisterInput(nextInput, inputRefs[6]);
-    const publisherName = useBookRegisterInput(nextInput, inputRefs[7]);
-    const imgUrl = useBookRegisterInput(submit);
-
-
 
     const bookTypeQuery = useQuery(
         ["bookTypeQuery"], 
@@ -76,6 +47,8 @@ function BookManagement(props) {
         }
     );
 
+
+
     const categoryQuery = useQuery(
         ["categoryQuery"], 
         getAllCategoryRequest,
@@ -92,6 +65,44 @@ function BookManagement(props) {
             refetchOnWindowFocus: false
         }
     );
+
+    const registerBookMutation = useMutation({
+        mutationKey: "registerBookMutation",
+        mutationFn: registerBook,
+        onSuccess:() => {},
+        onError:() => {}
+    })
+
+    const nextInput= (bookref) => {
+        console.log(bookref);
+        bookref.current.focus();
+    }
+
+    const submit = () => {
+        //저장 요청
+        registerBookMutation.mutate({
+            isbn: isbn.value,
+            bookTypeId: bookTypeName.value,
+            categoryId: categoryName.value,
+            bookName: bookName.value,
+            authorName: authorName.value,
+            publisherName: publisherName.value,
+            imgUrl: imgUrl.value
+        })
+    }
+
+    const bookId = useBookRegisterInput(nextInput, inputRefs[1]);
+    const isbn = useBookRegisterInput(nextInput, inputRefs[2]);
+    const bookTypeName = useBookRegisterInput(nextInput, inputRefs[3]);
+    const categoryName = useBookRegisterInput(nextInput, inputRefs[4]);
+    const bookName = useBookRegisterInput(nextInput, inputRefs[5]);
+    const authorName = useBookRegisterInput(nextInput, inputRefs[6]);
+    const publisherName = useBookRegisterInput(nextInput, inputRefs[7]);
+    const imgUrl = useBookRegisterInput(submit);
+
+
+
+    
 
     const selectStyle = 
         {
@@ -136,7 +147,8 @@ function BookManagement(props) {
     return (
         <div css={s.layout}>
             <div >
-                <h1 >도서 관리</h1>
+                <h1 css={s.header
+                }>도서 관리</h1>
                 <RightTopButton onClick={submit}>확인</RightTopButton>
             </div>
                 <div css={s.topLayout}>
