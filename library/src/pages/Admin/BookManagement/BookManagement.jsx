@@ -5,7 +5,7 @@ import * as s from "./style";
 import { css } from "@emotion/react";
 import { useMutation, useQuery } from "react-query";
 import { getAllBookTypeRequest, getAllCategoryRequest } from "../../../apis/api/options";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CiSquarePlus } from "react-icons/ci";
 import { useBookRegisterInput } from "../../../hooks/useBookRegisterInput";
 import { storage } from "../../../apis/api/firebase/config/firebaseConfig";
@@ -14,6 +14,8 @@ import { v4 as uuid } from "uuid";
 import RightTopButton from "../../../components/RightTopButton/RightTopButton";
 import { registerBook } from "../../../apis/api/bookApi";
 import AdminBookSearch from "../../../components/AdminBookSearch/AdminBookSearch";
+import { useRecoilState } from "recoil";
+import { selectedBookState } from "../../../atoms/adminSelectedBookAtom";
 
 function BookManagement(props) {
 
@@ -100,7 +102,18 @@ function BookManagement(props) {
     const authorName = useBookRegisterInput(nextInput, inputRefs[6]);
     const publisherName = useBookRegisterInput(nextInput, inputRefs[7]);
     const imgUrl = useBookRegisterInput(submit);
-
+    
+    const [ selectedBook ] = useRecoilState(selectedBookState);
+    useEffect(() => {
+        bookId.setValue(() => selectedBook.bookId)
+        isbn.setValue(() => selectedBook.isbn)
+        bookTypeName.setValue(() => ({value: selectedBook.bookTypeId, label:selectedBook.bookTypeName}))
+        categoryName.setValue(() => ({value: selectedBook.categoryId, label:selectedBook.categoryName}))
+        bookName.setValue(() => selectedBook.bookName)
+        authorName.setValue(() => selectedBook.authorName)
+        publisherName.setValue(() => selectedBook.publisherName)
+        imgUrl.setValue(() => selectedBook.coverImgUrl)
+    }, [selectedBook])
 
 
     

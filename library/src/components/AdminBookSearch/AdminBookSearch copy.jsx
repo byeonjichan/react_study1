@@ -1,25 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import Select from "react-select";
 import * as s from "./style";
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useQuery, useQueryClient } from "react-query";
 import { useReactSelect } from "../../hooks/useReactSelect";
 import { useBookRegisterInput } from "../../hooks/useBookRegisterInput";
 import { getBookCountRequest, searchBooksRequest } from "../../apis/api/bookApi";
 import { useSearchParams } from "react-router-dom";
 import AdminBookSearchPageNumbers from "../AdminBookSearchPageNumbers/AdminBookSearchPageNumbers";
-import { useRecoilState } from "recoil";
-import { selectedBookState } from "../../atoms/adminSelectedBookAtom";
 
-function AdminBookSearch({ selectStyle, bookTypeOptions, categoryOptions }) {
+function AdminBookSearchcopy({ selectStyle, bookTypeOptions, categoryOptions }) {
     const [searchParams, setSearchParams] = useSearchParams();
     const searchCount = 20;
     const [ bookList , setBookList ] = useState([]);
-    const [ checkAll, setCheckAll ] = useState({
-        checked:false,
-        target: 1
-    });
-    const [ selectedBook, setSelectedBook ] = useRecoilState(selectedBookState);
+    const checkBoxRef = useRef();
 
     const searchBooksQuery =useQuery(
         ["searchBooksQuery",searchParams.get("page")],
@@ -93,71 +87,31 @@ function AdminBookSearch({ selectStyle, bookTypeOptions, categoryOptions }) {
             }),
     }
 
-    useEffect(()=> {
-        if(checkAll.target === 1){
-            setBookList(() => 
-                bookList.map(book => {
-                    return {
-                        ...book,
-                        checked:checkAll.checked
-                    }
-                }))
-        }
-    },[checkAll])
-
-    const handleCheckAllChange = (e) => {
-        setCheckAll(()=> {
-            return{
-                checked:e.target.checked,
-                target: 1
+    const handleAllCheckOnChange = (e) => {
+        setBookList(()=> bookList.map(book => {
+            return {
+                ...book,
+                checked: e.target.checked
             }
-        });
+        }))
     }
-
-    useEffect(() => {
-        const findCount = bookList.filter(book => book.checked === false).length;
-        if(findCount === 0) {
-            setCheckAll(() => {
-                return{
-                    checked:true,
-                    target: 2
-                }
-            })
-        } else {
-            setCheckAll(() => {
-                return{
-                    checked:false,
-                    target: 2
-                }
-            })
-        }
-    },[bookList])
-
-    useEffect(() => {
-        const lastSelectedBook = {...selectedBook};
-        for(let book of bookList) {
-            if(book.checked === true){
-                lastSelectedBook = book;
-            }
-        }
-        setSelectedBook(() => lastSelectedBook);
-
-    },[bookList])
-
     const handleCheckOnChange = (e) => {
         const bookId = e.target.value;
-        setBookList(() => 
-            bookList.map(book => {
-                if(book.bookId === parseInt(bookId)) {
-                    return {
-                        ...book,
-                        checked: e.target.checked
-                    }
-                } else {
-                    return book;
+        setBookList(()=> bookList.map(book => {
+            if(parseInt(bookId) === book.bookId) {
+                return {
+                    ...book,
+                    checked:e.target.checked
                 }
-            })
-        )
+            }else {
+                return{
+                    ...book
+                }
+            }
+        }));
+        if(!e.target.checked) {
+            checkBoxRef.current.checked = false
+        };
     }
 
 
@@ -199,7 +153,7 @@ function AdminBookSearch({ selectStyle, bookTypeOptions, categoryOptions }) {
                 <table css={s.table}>
                     <thead >
                         <tr css={s.theadTr}>
-                            <th><input type="checkbox" checked={checkAll.checked} onChange={handleCheckAllChange}/></th>
+                            <th><input type="checkbox" onChange={((e)=>handleAllCheckOnChange(e))} ref={checkBoxRef}/></th>
                             <th>코드번호</th>
                             <th>도서명</th>
                             <th>저자명</th>
@@ -215,7 +169,7 @@ function AdminBookSearch({ selectStyle, bookTypeOptions, categoryOptions }) {
                         bookList.map(
                             (book, index) =>
                         <tr key={book.bookId}>
-                            <td><input type="checkbox" value={book.bookId} checked={book.checked} onChange={handleCheckOnChange}/></td>
+                            <td><input type="checkbox" value={book.bookId} checked={book.checked} onChange={((e) => handleCheckOnChange(e))}/></td>
                             <td>{book.bookId}</td>
                             <td>{book.bookName}</td>
                             <td>{book.authorName}</td>
