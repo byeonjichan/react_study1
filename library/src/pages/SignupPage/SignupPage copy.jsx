@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 function SignupPage() {
     const navigate = useNavigate();
 
-    const [ username, setUsername, userNameChange ] = useInput();
+    const [ username, setUsername, userNameChange ] = useInput("username");
     const [ password, setPassword, passwordChange ] = useInput();
     const [ checkPassword, setCheckPassword, checkPasswordChange ] = useInput();
     const [ name, setName, nameChange ] = useInput();
@@ -130,7 +130,6 @@ function SignupPage() {
         }
     }
 
-    
     return (
         <>
             <div css={s.header}>

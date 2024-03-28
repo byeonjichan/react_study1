@@ -7,5 +7,5 @@ export const useReactSelect = (defaultValue) => {
         setOption(() => option);
     }
 
-    return { option, setOption, handleOnChange, defaultValue }
+    return { option, setOption, handleOnChange, defaultValue };
 }

@@ -1,17 +1,17 @@
 import { atom } from "recoil";
 
 export const selectedBookState = atom({
-    key:"selectedBookState",
+    key: "selectedBookState",
     default: {
         bookId: 0,
         isbn: "",
         bookTypeId: 0,
-        bookTypeName:"",
+        bookTypeName: "",
         categoryId: 0,
-        categoryName:"",
+        categoryName: "",
         bookName: "",
         authorName: "",
         publisherName: "",
         coverImgUrl: ""
     }
-})
+});

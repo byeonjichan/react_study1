@@ -7,18 +7,19 @@ import { Link } from "react-router-dom";
 import { FiUser, FiLogOut } from "react-icons/fi";
 import { useQueryClient } from "react-query";
 import { useEffect, useState } from "react";
+import axios from "axios";
 import instance from "../../apis/utils/instance";
+import { principalState } from "../../atoms/principalAtom";
 
 function RootHeader() {
     const [ show, setShow ] = useRecoilState(menuState);
-    const [ isLogin , setLogin ] = useState(false);
+    const [ isLogin, setLogin ] = useState(false);
     const queryClient = useQueryClient();
-    const principalQueryState = queryClient.getQueryState("principalQuery")
-    
+    const principalQueryState = queryClient.getQueryState("principalQuery");
 
     useEffect(() => {
-        setLogin(() => principalQueryState.status === "success")
-    },[principalQueryState.status])
+        setLogin(() => principalQueryState.status === "success");
+    }, [principalQueryState.status]);
 
     const handleOpenClick = (e) => {
         e.stopPropagation();
@@ -31,13 +32,8 @@ function RootHeader() {
             config.headers.Authorization = null;
             return config;
         });
-        queryClient.refetchQueries("principalQuery")
-        window.location.replace("auth/signin")
-    }
-    
-    const handleRefetch = () => {
         queryClient.refetchQueries("principalQuery");
-        
+        window.location.replace("/auth/signin");
     }
 
     return (
@@ -45,13 +41,12 @@ function RootHeader() {
             <button css={s.menuButton} onClick={handleOpenClick}>
                 <HiMenu />
             </button>
-            <button onClick={handleRefetch}>principal 다시 로드</button>
             {
                 !isLogin 
                 ? <Link css={s.account} to={"/auth/signin"}>
                     <FiUser />
                 </Link>
-                :
+                : 
                 <div css={s.accountItems}>
                     <button css={s.logout} onClick={handleLogoutClick}>
                         <FiLogOut />
@@ -61,6 +56,7 @@ function RootHeader() {
                     </Link>
                 </div>
             }
+            
         </div>
     );
 }

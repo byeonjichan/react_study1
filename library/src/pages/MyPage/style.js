@@ -39,21 +39,20 @@ export const profileImg = css`
     height: 100%;
     overflow: hidden;
     & > img {
-        height: 100%;   
+        height: 100%;
     }
 `;
 
 export const infoBox = css`
     box-sizing: border-box;
-    margin-left:30px;
-    padding-top:30px;
+    margin-left: 30px;
+    padding-top: 30px;
 `;
 
 export const infoText = css`
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 10px;
-
 `;
 
 export const emailBox = css`
@@ -68,12 +67,11 @@ export const emailBox = css`
 
 export const infoButton = css`
     box-sizing: border-box;
-    margin-left: 10px;
     border: 1px solid #dbdbdb;
     border-radius: 3px;
-    padding: 3px;
+    padding: 5px;
     background-color: white;
-    font-size:12px;
+    font-size: 12px;
     cursor: pointer;
 
     &:hover {
@@ -89,18 +87,17 @@ export const emailCheck = css`
     align-items: center;
 
     & > * {
-        color: #008734
+        color: #008734;
     }
 `;
 
 export const infoButtons = css`
     box-sizing: border-box;
     display: flex;
-    padding-top: 5px ;
+    padding-top: 5px;
     & > button:nth-of-type(1) {
-        margin-right: 5px;
+        margin-right: 10px;
     }
-
 `;
 
 export const bottom = css`
@@ -114,4 +111,3 @@ export const bottom = css`
     height: 250px;
     background-color: white;
 `;
-

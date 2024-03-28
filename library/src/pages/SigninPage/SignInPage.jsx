@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { Link } from "react-router-dom";
+import AuthPageInput from "../../components/AuthPageInput/AuthPageInput";
+import RightTopButton from "../../components/RightTopButton/RightTopButton";
 import { useInput } from "../../hooks/useInput";
 import * as s from "./style";
-import RightTopButton from "../../components/RightTopButton/RightTopButton";
-import AuthPageInput from "../../components/AuthPageInput/AuthPageInput";
 import { signinRequest } from "../../apis/api/signin";
 
-function SignInPage(props) {
+function SigninPage() {
     const [ username, usernameChange ] = useInput();
     const [ password, passwordChange ] = useInput();
 
@@ -16,9 +16,9 @@ function SignInPage(props) {
             password
         }).then(response => {
             const accessToken = response.data;
-            localStorage.setItem("AccessToken" , accessToken);
-            window.location.replace("/")
-        }).catch(error =>{
+            localStorage.setItem("AccessToken", accessToken);
+            window.location.replace("/");
+        }).catch(error => {
             alert(error.response.data);
         })
     }
@@ -27,9 +27,9 @@ function SignInPage(props) {
         <>
             <div css={s.header}>
                 <h1>로그인</h1>
-                <RightTopButton onClick={handleSigninSubmit}>로그인 하기</RightTopButton>
+                <RightTopButton onClick={handleSigninSubmit}>로그인하기</RightTopButton>
             </div>
-            <AuthPageInput type={"text"} name={"username"} placeholder={"사용자이름"} value={username} onChange={usernameChange}  />
+            <AuthPageInput type={"text"} name={"username"} placeholder={"사용자이름"} value={username} onChange={usernameChange} />
             <AuthPageInput type={"password"} name={"password"} placeholder={"비밀번호"} value={password} onChange={passwordChange} />
             <Link to={"/auth/signup"}>회원가입</Link>
             <div>
@@ -41,4 +41,4 @@ function SignInPage(props) {
     );
 }
 
-export default SignInPage;
+export default SigninPage;

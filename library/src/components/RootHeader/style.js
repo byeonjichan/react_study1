@@ -28,7 +28,6 @@ export const accountItems = css`
     display: flex;
     align-items: center;
     height: 100%;
-    
 `;
 
 export const account = css`
@@ -37,24 +36,24 @@ export const account = css`
     align-items: center;
     margin: 0px 8px;
     border-radius: 50%;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     overflow: hidden;
-    text-decoration:none ;
+    text-decoration: none;
     color: #222222;
     cursor: pointer;
 `;
 
 export const logout = css`
-    display: flex;  
+    display: flex;
     justify-content: center;
     align-items: center;
     margin: 0;
     border: none;
     border-radius: 50%;
     padding: 0;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     overflow: hidden;
     background-color: transparent;
     cursor: pointer;

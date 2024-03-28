@@ -1,16 +1,15 @@
-/** @jsxImportSource @emotion/react */
-import { useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
+import React, { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-function OAuth2SigninPage(props) {
+function OAuth2SigninPage() {
     const [ searchParams ] = useSearchParams();
     const accessToken = searchParams.get("accessToken");
 
     useEffect(() => {
         localStorage.setItem("AccessToken", accessToken);
         window.location.replace("/");
-    },[])
-    
+    }, []);
+
     return (
         <div>
             

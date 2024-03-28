@@ -45,7 +45,7 @@ export const profile = css`
     height: 150px;
 `;
 
-export const authButton = css`
+export const authButtons = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -56,10 +56,10 @@ export const authButton = css`
 
     & > button {
         box-sizing: border-box;
-        border: 1px solid #dbdbdb;
         margin-bottom: 5px;
-        padding: 5px;
+        border: 1px solid #dbdbdb;
         border-radius: 3px;
+        padding: 5px;
         background-color: white;
         font-weight: 600;
         cursor: pointer;
@@ -67,6 +67,7 @@ export const authButton = css`
         &:hover {
             background-color: #fafafa;
         }
+
         &:active {
             background-color: #eeeeee;
         }
@@ -77,7 +78,7 @@ export const settings = css`
     display: flex;
     justify-content: flex-end;
     padding: 5px 10px;
-    
+
     & > * {
         padding: 5px;
         cursor: pointer;
@@ -89,7 +90,6 @@ export const profileBox = css`
     justify-content: center;
     align-items: center;
     width: 100%;
-    
 `;
 
 export const profileImg = css`
@@ -110,10 +110,10 @@ export const usernameAndEmail = css`
     margin-left: 5px;
     cursor: default;
 
-    & > span:nth-of-type(1){
+    & > span:nth-of-type(1) {
         font-weight: 600;
     }
-    & > span:nth-of-type(2){
+    & > span:nth-of-type(2) {
         font-size: 12px;
     }
 `;

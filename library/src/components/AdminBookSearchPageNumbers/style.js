@@ -4,13 +4,13 @@ export const layout = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
     margin-top: 5px;
+    width: 100%;
 `;
 
 export const pageNumbers = css`
     display: flex;
-`;
+`
 
 export const pageButton = (isSelected) => css`
     box-sizing: border-box;
@@ -22,16 +22,16 @@ export const pageButton = (isSelected) => css`
     border-radius: 2px;
     min-width: 25px;
     height: 25px;
-    background-color: ${isSelected ? "#dbdbdb" : "white" };
+    background-color: ${isSelected ? "#dbdbdb" : "white"};
     text-decoration: none;
     font-size: 10px;
-    color: ${isSelected ? "white" : "#777777" };
+    color: ${isSelected ? "white" : "#777777"};
 `;
 
 export const pageCount = css`
     box-sizing: border-box;
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     border: 1px solid #dbdbdb;
     padding: 10px;
@@ -42,11 +42,10 @@ export const pageCount = css`
 `;
 
 export const page = css`
+    margin-right: 10px;
     font-size: 14px;
-    margin-right: 14px;
 `;
 
 export const count = css`
     font-size: 14px;
 `;
-    

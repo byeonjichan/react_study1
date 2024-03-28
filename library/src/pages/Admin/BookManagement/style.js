@@ -21,7 +21,6 @@ export const header = css`
 
 export const topLayout = css`
     display: flex;
-    flex-direction: column;
     width: 100%;
 `;
 
